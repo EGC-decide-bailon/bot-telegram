@@ -19,11 +19,12 @@ def votings(update, context):
     response2 = llamadas.get_votings(usuario["id"])
     votos = json.loads(response2.text)
 
- # Perseo de votos
+ # Parseo de votos
     votaciones = parser.parseVotings(votos)
     global_vars.user_votings = votaciones
-    reply_keyboard = parser.createKeybVoting(votaciones)
-
+# Parseo de las respuestas de los votos para mostrarlas como botones
+    botones = parser.createKeybVoting(votaciones)
     update.message.reply_text('Cargando votaciones!', reply_markup=ReplyKeyboardMarkup(
-        reply_keyboard, one_time_keyboard=True))
+        botones, one_time_keyboard=True))
+
     return VOTING

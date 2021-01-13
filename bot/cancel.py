@@ -9,6 +9,6 @@ from telegram.ext import (Updater, CommandHandler, MessageHandler, Filters,
 
 def cancel(update, context):
 
-    update.message.reply_text('Adios!', reply_markup=ReplyKeyboardRemove())
+    update.message.reply_text('Adios! escribe /start para volver a iniciar', reply_markup=ReplyKeyboardRemove())
 
     return ConversationHandler.END

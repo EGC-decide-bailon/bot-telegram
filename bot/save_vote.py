@@ -10,13 +10,16 @@ import json
 
 LOGIN, STORE, VOTINGS, VOTING, SAVE_VOTE  = range(5)
 
-def save_vote(update,context):
-    selected_option_id=update.message.text.split('-')[0]    
+#--Guardado del voto final de la persona
 
+def save_vote(update,context):
+#--Id de la votación realizada
+    selected_option_id=update.message.text.split('-')[0]    
+#--Recuperar el usuario para hacer el voto con el id
     user_by_token=llamadas.get_user(global_vars.token)
     usuario = json.loads(user_by_token.text)
     user_id=usuario['id']
-
+#--Parseo de la respuesta según nuestros estándares
     if selected_option_id is 1:
         a = 1
         b = 0
@@ -28,8 +31,8 @@ def save_vote(update,context):
     'voter':user_id,
     'token': global_vars.token
     }
-
+#--Guardado del voto con llamada a la API
     llamadas.save_vote_data(data_dict)
-
+#--Final de la interacción del bot
     update.message.reply_text('La votación ha sido realizada con éxito.', reply_markup=ReplyKeyboardRemove())
     return ConversationHandler.END

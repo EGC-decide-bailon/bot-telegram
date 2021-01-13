@@ -16,4 +16,4 @@ class TestMethods(unittest.TestCase):
         credentials = {"username": "user", "password":"rinoceronte"}
         r = requests.post(URL_GW + 'authentication/login' + credentials)
         print(json.load(r.text))
-        self.assertEqual(r.text,'')
+        self.assertEquals(r.text,'')
