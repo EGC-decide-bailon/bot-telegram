@@ -34,8 +34,8 @@ def main():
 
         fallbacks=[CommandHandler('cancel', cancel.cancel)]
     )
-dp.add_handler(conv_handler)
-dp.add_error_handler(error.error)
+    dp.add_handler(conv_handler)
+    dp.add_error_handler(error.error)
 
 if __name__ == '__main__':
     main()
