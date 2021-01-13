@@ -35,20 +35,7 @@ def main():
         fallbacks=[CommandHandler('cancel', cancel.cancel)]
     )
 dp.add_handler(conv_handler)
-
-#--Configuración con heroku
-    dp.add_error_handler(error.error)
-
-    if(config.WEBHOOK):
-        PORT = int(os.environ.get("PORT", config.PORT))
-        updater.start_webhook(listen="0.0.0.0",
-                              port=PORT,
-                              url_path=config.BOT_TOKEN)
-        updater.bot.set_webhook("https://{}.herokuapp.com/{}".format(config.HEROKU_APP_NAME, config.BOT_TOKEN))
-    else:
-        updater.start_polling()
-
-    updater.idle()
+dp.add_error_handler(error.error)
 
 if __name__ == '__main__':
     main()
