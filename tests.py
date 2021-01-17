@@ -24,25 +24,24 @@ class TestMethods(unittest.TestCase):
 
     def test_get_user(self):
         credentials = {"username": "user", "password":"rinoceronte2"}
-        token = llamadas.get_token(credentials)
+        token = str(llamadas.get_token(credentials))
         data = {'token': token}
         r = requests.post(URL_GW + 'authentication/getuser/', data)
         self.assertEqual(r.status_code,200)
 
     def test_save_vote(self):
         credentials = {"username": "user", "password":"rinoceronte2"}
-        token = llamadas.get_token(credentials)
+        token = str(llamadas.get_token(credentials))
         data = {'token': token}
-        user = requests.post(URL_GW + 'authentication/getuser/', data)
-        id = user.text['id']
+        
         data_dict = {
             "vote": { "a": 0,"b": 1},
             "voting": 3,
-            "voter": id,
+            "voter": 2,
             "token": token}
         headers = {"Authorization":"Token " + token,
             "Content-Type": "application/json"}
-        r = requests.post(config.URL_BASE + "store/", json=data_dict, headers = headers)
+        r = requests.post(URL_BASE + "store/", json=data_dict, headers = headers)
         self.assertEqual(r.status_code, 200)
 
     #Test de errores
