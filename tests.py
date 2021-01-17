@@ -10,16 +10,16 @@ class TestMethods(unittest.TestCase):
 
     def test_login_test(self):
         credentials = {"username": "user", "password":"rinoceronte2"}
-        r = requests.post(URL_GW + 'authentication/login' + credentials)
+        r = requests.post(URL_GW + 'authentication/login', credentials)
         self.assertEqual(r.status_code,200)
 
     def test_get_votings(self):
-        r = requests.get(URL_GW + 'voting/?id=' + id_votacion)
+        r = requests.get(URL_GW + 'voting/?id=')
         self.assertEqual(r.status_code,200)
 
     def test_get_voting(self):
         id_votacion = 1
-        r = requests.get(URL_GW + 'voting/?id=' + id_votacion)
+        r = requests.get(URL_GW + 'voting/?id=' + str(id_votacion))
         self.assertEqual(r.status_code,200)
 
     def test_get_user(self):
@@ -34,7 +34,7 @@ class TestMethods(unittest.TestCase):
         token = llamadas.get_token(credentials)
         data = {'token': token}
         user = requests.post(URL_GW + 'authentication/getuser/', data)
-        id = user['id']
+        id = user.text['id']
         data_dict = {
             "vote": { "a": 0,"b": 1},
             "voting": 3,
