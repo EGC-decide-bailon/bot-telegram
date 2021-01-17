@@ -8,9 +8,9 @@ URL_GW = URL_BASE + 'gateway/'
 
 class TestMethods(unittest.TestCase):
 
-    def test_login_test(self):
-        credentials = {"username": "user", "password":"rinoceronte2"}
-        r = requests.post(URL_GW + 'authentication/login', credentials)
+    def test_login(self):
+        credentials = {"username": "user", "password": "rinoceronte2"}
+        r = requests.post(URL_GW + 'authentication/login/', credentials)
         self.assertEqual(r.status_code,200)
 
     def test_get_votings(self):
@@ -24,14 +24,18 @@ class TestMethods(unittest.TestCase):
 
     def test_get_user(self):
         credentials = {"username": "user", "password":"rinoceronte2"}
-        token = str(llamadas.get_token(credentials))
+        token_ser = requests.post(URL_GW + 'authentication/login/', credentials)
+        token_des = token_ser.json()
+        token = token_des['token']
         data = {'token': token}
         r = requests.post(URL_GW + 'authentication/getuser/', data)
         self.assertEqual(r.status_code,200)
 
     def test_save_vote(self):
-        credentials = {"username": "user", "password":"rinoceronte2"}
-        token = str(llamadas.get_token(credentials))
+        credentials = {"username": "user", "password": "rinoceronte2"}
+        token_ser = requests.post(URL_GW + 'authentication/login/', credentials)
+        token_des = token_ser.json()
+        token = token_des["token"]
         data = {'token': token}
         
         data_dict = {
@@ -44,7 +48,6 @@ class TestMethods(unittest.TestCase):
         r = requests.post(URL_BASE + "store/", json=data_dict, headers = headers)
         self.assertEqual(r.status_code, 200)
 
-    #Test de errores
 
 if __name__ == '__main__':
     unittest.main()
