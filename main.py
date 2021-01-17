@@ -36,8 +36,9 @@ def main():
 
     dp.add_handler(conv_handler)
 
-    # log all errors
     dp.add_error_handler(error.error)
+
+#--Conexión con heroku para mantenerlo a la espera
 
     if(config.WEBHOOK):
         PORT = int(os.environ.get("PORT", config.PORT))

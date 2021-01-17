@@ -10,6 +10,7 @@ def get_token(credentials):
 
 #--Recuperar votación
 def get_votings(id):
+    #--Si el id viene vacío, recupera la lista de votaciones
     r = requests.get(config.API_DECIDE + "voting/?id="+str(id))
     return r
 

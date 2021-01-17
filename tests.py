@@ -1,6 +1,7 @@
 import requests
 import unittest
 import json
+from bot import llamadas
 
 URL_BASE = 'https://decide-voting.herokuapp.com/'
 URL_GW = URL_BASE + 'gateway/'
@@ -12,8 +13,14 @@ class TestMethods(unittest.TestCase):
         r = requests.post(URL_GW + 'authentication/login' + credentials)
         self.assertEqual(r.status_code,200)
 
-    def login_test_fail(self):
-        credentials = {"username": "user", "password":"rinoceronte"}
-        r = requests.post(URL_GW + 'authentication/login' + credentials)
-        print(json.load(r.text))
-        self.assertEquals(r.text,'')
+    def get_votings(self):
+        id_votacion = 1
+        r = requests.get(URL_GW + 'voting/?id=' + id_votacion)
+        self.assertEqual(r.status_code,200)
+
+    def get_user(self):
+        credentials = {"username": "user", "password":"rinoceronte2"}
+        token = llamadas.get_token(credentials)
+        data = {'token': token}
+        r = requests.post(URL_GW + 'authentication/getuser/', data)
+        self.assertEqual(r.status_code,200)
