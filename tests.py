@@ -39,7 +39,12 @@ class TestMethods(unittest.TestCase):
             "voting": 3,
             "voter": user['id'],
             "token": token}
-        headers = {"Authorization":"Token   " + token,
+        headers = {"Authorization":"Token " + token,
             "Content-Type": "application/json"}
         r = requests.post(config.BASE_URL_HEROKU + "store/", json=data_dict, headers = headers)
         self.assertEqual(r.status_code, 200)
+
+    #Test de errores
+
+if __name__ == '__main__':
+unittest.main()
