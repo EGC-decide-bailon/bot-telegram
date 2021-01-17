@@ -14,6 +14,10 @@ class TestMethods(unittest.TestCase):
         self.assertEqual(r.status_code,200)
 
     def get_votings(self):
+        r = requests.get(URL_GW + 'voting/?id=' + id_votacion)
+        self.assertEqual(r.status_code,200)
+
+    def get_voting(self):
         id_votacion = 1
         r = requests.get(URL_GW + 'voting/?id=' + id_votacion)
         self.assertEqual(r.status_code,200)
