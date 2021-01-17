@@ -1,6 +1,6 @@
 # ---------------Bot Telegram Decide (Cabina)---------------- #
 
-   ##Guia  rápida:
+   ##Guia  rápida##
 
 - Puedes encontrar el bot buscando `@votacion_decide_bot` en Telegram
 ---
