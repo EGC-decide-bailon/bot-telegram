@@ -48,6 +48,24 @@ class TestMethods(unittest.TestCase):
         r = requests.post(URL_BASE + "store/", json=data_dict, headers = headers)
         self.assertEqual(r.status_code, 200)
 
+    #Test de errores
+
+    def test_login_fail(self):
+        credentials = {"username": "noexisto", "password": "estamal"}
+        r = requests.post(URL_GW + 'authentication/login/', credentials)
+        self.assertEqual(r.status_code,400)
+
+    def test_get_voting_fail(self):
+        id_votacion = 21341254
+        r = requests.get(URL_GW + 'voting/?id=' + str(id_votacion))
+        r = r.json()
+        res = False
+        for i in r:
+            if(i['id'] == id_votacion):
+                res = True
+                break
+        self.assertFalse(res)
+    
 
 if __name__ == '__main__':
     unittest.main()
